@@ -1,0 +1,6 @@
+@RJT_2025Restart_HostAddress = http://localhost:5282
+
+GET {{RJT_2025Restart_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
