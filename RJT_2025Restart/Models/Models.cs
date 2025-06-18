@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace RJT_ASPNET.Models
 {
@@ -11,11 +9,11 @@ namespace RJT_ASPNET.Models
         {
             public string FromStop { get; set; }
             public string ToStop { get; set; }
+            public int Count { get; set; }
         }
 
         public class DayType
         {
-            public BsonObjectId _id { get; set; }
             public string TypeOfDay { get; set; }
             public DateTime Date { get; set; }
         }
@@ -25,11 +23,6 @@ namespace RJT_ASPNET.Models
         {
             public List<JourneyTime> JourneyTimes { get; set; }
             public List<WorstJourneyTime> WorstJourneyTimes { get; set; }
-        }
-
-        public class CombinedReturnObjectPercentiles
-        {
-            public List<JourneyTime> JourneyTimes { get; set; }
             public List<RealJourneyTime> RealJourneyTimes { get; set; }
         }
 
@@ -73,29 +66,19 @@ namespace RJT_ASPNET.Models
             public string ScheduledArrival { get; set; }
         }
 
-        [BsonIgnoreExtraElements]
         public class NaptanStop
         {
-            [BsonId]
-            [BsonElement("_id")]
             public string stop_id { get; set; }
-            [BsonElement("NaptanCode")]
             public string stop_code { get; set; }
-            [BsonElement("CommonName")]
             public string stop_name { get; set; }
-            [BsonElement("Latitude")]
             public double stop_lat { get; set; }
-            [BsonElement("Longitude")]
             public double stop_lon { get; set; }
-            [BsonElement("StopType")]
             public string vehicle_type { get; set; }
         }
 
         public class FlatPrediction
         {
-            [BsonId]
             public string _id { get; set; }
-
             public string uniqueKey { get; set; }
             public string UniqueDepartureId { get; set; } // this Id is calculated later and is unique across days
             public string Id { get; set; } // this Id is only unique per day
