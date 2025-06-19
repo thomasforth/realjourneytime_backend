@@ -48,12 +48,12 @@ namespace RJT_2025Restart.Controllers
                 {
                     if (service == null)
                     {
-                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND ScheduledArrival > '{parsedDate.ToString("o")}' and ScheduledArrival < '{parsedDate.AddDays(1).ToString("o")}' and (NaptanId = '{fromCode}' or NaptanId = '{toCode}')").ToList();
+                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.small.slim.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND ScheduledArrival > '{parsedDate.ToString("o")}' and ScheduledArrival < '{parsedDate.AddDays(1).ToString("o")}' and (NaptanId = '{fromCode}' or NaptanId = '{toCode}')").ToList();
                         //DeparturesFromStopsOfInterest = flatPredictionsDB.Find(x => x.ScheduledArrival > parsedDate && x.ScheduledArrival < parsedDate.AddDays(1) && (x.NaptanId == fromCode || x.NaptanId == toCode)).ToList();
                     }
                     else
                     {
-                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND ScheduledArrival > '{parsedDate.ToString("o")}' and ScheduledArrival < '{parsedDate.AddDays(1).ToString("o")}' and (NaptanId = '{fromCode}' or NaptanId = '{toCode}') and LineName = '{service}'").ToList();
+                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.small.slim.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND ScheduledArrival > '{parsedDate.ToString("o")}' and ScheduledArrival < '{parsedDate.AddDays(1).ToString("o")}' and (NaptanId = '{fromCode}' or NaptanId = '{toCode}') and LineName = '{service}'").ToList();
                         //DeparturesFromStopsOfInterest = flatPredictionsDB.Find(x => x.ScheduledArrival > parsedDate && x.ScheduledArrival < parsedDate.AddDays(1) && (x.NaptanId == fromCode || x.NaptanId == toCode) && (x.LineName == service)).ToList();
                     }
                 }
@@ -61,12 +61,12 @@ namespace RJT_2025Restart.Controllers
                 {
                     if (service == null)
                     {
-                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND (NaptanId = '{fromCode}' or NaptanId = '{toCode}')").Take(100000).ToList();
+                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.small.slim.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND (NaptanId = '{fromCode}' or NaptanId = '{toCode}')").Take(100000).ToList();
                         //DeparturesFromStopsOfInterest = flatPredictionsDB.Find(x => x.ScheduledArrival > DateTime.Now.AddDays(-56) && (x.NaptanId == fromCode || x.NaptanId == toCode)).ToList();
                     }
                     else
                     {
-                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND ScheduledArrival > '{DateTime.Now.AddDays(-56).ToString("o")}' and LineName = '{service}' and (NaptanId = '{fromCode}' or NaptanId = '{toCode}')").ToList();
+                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.small.slim.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND ScheduledArrival > '{DateTime.Now.AddDays(-56).ToString("o")}' and LineName = '{service}' and (NaptanId = '{fromCode}' or NaptanId = '{toCode}')").ToList();
                         //DeparturesFromStopsOfInterest = flatPredictionsDB.Find(x => x.ScheduledArrival > DateTime.Now.AddDays(-56) && x.LineName == service && (x.NaptanId == fromCode || x.NaptanId == toCode)).ToList();
                     }
                 }
@@ -148,12 +148,12 @@ namespace RJT_2025Restart.Controllers
                     // this is a really expensive call -- we collect all historic journeys, no matter how old.
                     if (service == null)
                     {
-                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND NaptanId = '{fromCode}' or NaptanId = '{toCode}')").ToList();
+                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.small.slim.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND NaptanId = '{fromCode}' or NaptanId = '{toCode}')").ToList();
                         //DeparturesFromStopsOfInterest = flatPredictionsDB.Find(x => (x.NaptanId == fromCode || x.NaptanId == toCode)).ToList();
                     }
                     else
                     {
-                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND LineName = '{service}' and (NaptanId = '{fromCode}' or NaptanId = '{toCode}')").ToList();
+                        DeparturesFromStopsOfInterest = DuckDB.Query<FlatPrediction>($"select * from 'Data/RJT.flatprediction.clean.small.slim.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND LineName = '{service}' and (NaptanId = '{fromCode}' or NaptanId = '{toCode}')").ToList();
                         //DeparturesFromStopsOfInterest = flatPredictionsDB.Find(x => x.LineName == service && (x.NaptanId == fromCode || x.NaptanId == toCode)).ToList();
                     }
                     foreach (FlatPrediction flatPrediction in DeparturesFromStopsOfInterest)
@@ -184,8 +184,6 @@ namespace RJT_2025Restart.Controllers
                     
                     FlatPrediction? ToStop = FlatPredictionLookup[string.Concat(uniqueID, toCode)].FirstOrDefault();
                     FlatPrediction? FromStop = FlatPredictionLookup[string.Concat(uniqueID, fromCode)].FirstOrDefault();
-
-
 
                     if (ToStop != null && FromStop != null)
                     {

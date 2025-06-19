@@ -16,4 +16,16 @@
     <PackageReference Include="DuckDB.NET.Data.Full" Version="1.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\RJT.flatprediction.clean.small.slim.parquet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\RJT.holidays.clean.parquet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\RJT.naptan.parquet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

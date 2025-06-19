@@ -25,9 +25,9 @@ namespace RJT_2025Restart.Controllers
             using (DuckDBConnection DuckDB = new("Data Source=:memory:"))
             {
                 DuckDB.Open();
-                string MostCommonJourneyIdsConnectingTheTwoPoints = DuckDB.Query<string>($"SELECT Id FROM 'Data/RJT.flatprediction.clean.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND (NaptanId = '{fromCode1}' OR NaptanId = '{toCode1}') GROUP BY Id ORDER BY COUNT(*) DESC LIMIT 1").FirstOrDefault();
+                string MostCommonJourneyIdsConnectingTheTwoPoints = DuckDB.Query<string>($"SELECT Id FROM 'Data/RJT.flatprediction.clean.small.slim.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND (NaptanId = '{fromCode1}' OR NaptanId = '{toCode1}') GROUP BY Id ORDER BY COUNT(*) DESC LIMIT 1").FirstOrDefault();
 
-                List<FlatPrediction> stopOnTheMostCommonJourneyId = DuckDB.Query<FlatPrediction>($"SELECT * FROM 'Data/RJT.flatprediction.clean.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND Id = '{MostCommonJourneyIdsConnectingTheTwoPoints}' order by ScheduledArrival Desc").ToList();
+                List<FlatPrediction> stopOnTheMostCommonJourneyId = DuckDB.Query<FlatPrediction>($"SELECT * FROM 'Data/RJT.flatprediction.clean.small.slim.parquet' where datepart('Year', ScheduledArrival) = '{year}' AND Id = '{MostCommonJourneyIdsConnectingTheTwoPoints}' order by ScheduledArrival Desc").ToList();
                 DateTime fromStopTime = stopOnTheMostCommonJourneyId.Where(x => x.NaptanId == fromCode1).First().ScheduledArrival;
 
                 DateTime toStopTime = stopOnTheMostCommonJourneyId.Where(x => x.NaptanId == toCode1).First().ScheduledArrival;
