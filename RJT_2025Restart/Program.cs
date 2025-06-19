@@ -15,6 +15,14 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Don't change the capitalization of the JSON response
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null; // Preserve property names as they are
+        options.JsonSerializerOptions.DictionaryKeyPolicy = null; // Preserve dictionary keys as they are
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
